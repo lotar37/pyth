@@ -2,6 +2,8 @@ import tkinter
 def print_hello(event):
     print(dir(event))
     event.widget['text'] = "yep"
+
+
     #print(dir(event))
 def button_click():
     print(1,2,2,3,sep="------")
