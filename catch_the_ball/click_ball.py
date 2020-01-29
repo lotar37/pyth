@@ -35,9 +35,6 @@ class MainWindow:
             canvas.itemconfig(self.scores_text, text=scores_format%self.scores)
             self.scores_text
             self.ball.destroy()
-
-
-
             self.ball = Ball.generate_random_ball()
 
     def game_cycle(self, *ignore):
