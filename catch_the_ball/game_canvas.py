@@ -1,8 +1,8 @@
 import tkinter
 from random import choice, randint
 ball_inition_number = 190
-ball_min_radius = 15
-ball_max_radius = 40
+ball_min_radius = 10
+ball_max_radius = 20
 ball_available_colors = ["green", "blue", "red", "yellow", "magenta"]
 def paint(event):
     print(event.x, event.y)
@@ -47,7 +47,11 @@ def click_ball(event):
         canvas.delete(obj)
         create_random_ball()
 
-
+def move_all_balls(event):
+    speed = 36
+    for obj in canvas.find_all():
+        dx, dy = randint(-1*speed,speed), randint(-1*speed,speed)
+        canvas.move(obj, dx, dy)
 
 def init_main_window():
     global root, canvas
@@ -56,7 +60,8 @@ def init_main_window():
     canvas = tkinter.Canvas(root,background="white", width=400, height=400)
 
     canvas.pack()
-    canvas.bind("<Motion>",click_ball)
+    canvas.bind("<Button>",click_ball)
+    canvas.bind("<Motion>",move_all_balls)
     line = canvas.create_line(100, 175, 100, 50, fill='lightblue',width=1)
 
 
