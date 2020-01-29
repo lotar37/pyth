@@ -21,10 +21,10 @@ def init_main_window():
     button2 = tkinter.Button(root, text="Button2", command="button_command")
     button2.bind("<Button>", print_hello)
 
-    variable = tkinter.IntVar()
-    label = tkinter.Label(root, text="Some text")
-    scale = tkinter.Scale(root)
-    text = tkinter.Entry(root)
+    variable = tkinter.IntVar(0)
+    label = tkinter.Label(root, textvariable=variable)
+    scale = tkinter.Scale(root, orient=tkinter.HORIZONTAL, length=300, from_=0, to=100, tickinterval=10, variable=variable)
+    text = tkinter.Entry(root, textvariable=variable)
 
 
 
