@@ -10,3 +10,4 @@ class vector2D:
 a = vector2D(2,2)
 b = vector2D(-1,2)
 c = a.plus(b)
+print(c)
