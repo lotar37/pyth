@@ -3,7 +3,7 @@ from random import *
 
 screen_width = 600
 screen_height = 400
-r_min = 20
+r_min = 10
 r_max = 50
 dt = 10  # микросекунд
 #ball_sprite_filename = "ball_sprite.png"
@@ -61,13 +61,15 @@ class Ball:
         """ сдвинуть шарик на его скорость """
         # FIXME
         self.x += 1
-        canvas.move(self.avatar, 1, 0)
+        canvas.move(self.avatar, 1, randint(-3, 3))
         pass
 
     @classmethod
     def generate_random_ball(cls):
         r = randint(r_min, r_max)
         x = randint(r, screen_width-r-1)
+        if x>300:
+            x=300
         y = randint(r, screen_height-r-1)
         # FIXME: добавить генерацию случайной скорости
         return Ball(x, y, r)
