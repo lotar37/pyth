@@ -10,6 +10,7 @@ dt = 10  # микросекунд
 scores_format = 'очки: %d'
 
 
+
 class MainWindow:
     def __init__(self, root):
         global canvas
