@@ -11,3 +11,6 @@ a = vector2D(2,2)
 b = vector2D(-1,2)
 c = a.plus(b)
 print(c)
+print(1, 2, 3, sep = ':')
+N = 987654321
+print(N % 10 ** 5 // 10 ** 2)
