@@ -27,8 +27,8 @@ class Gun():
         return bullet
 
 class Ball:
-    inition_number = 30
-    ball_min_radius = 10
+    inition_number = 10
+    ball_min_radius = 20
     ball_max_radius = 20
     ball_available_colors = ["green", "blue", "red", "yellow", "magenta","black","green",
                              "cyan","pink","orange", "gray", "lightgray", "darkred", "lightgreen", "darkorange"]
@@ -48,21 +48,45 @@ class Ball:
         self._avatar = canvas.create_oval(self._x, self._y, self._x + 2 * self._R, self._y + 2 * self._R,
                                           fill=choice(Ball.ball_available_colors), outline='white')
 
+    def move_return(self):
+        self._Vx = -self._Vx
+        self._Vy = -self._Vy
+        self._y += self._Vy
+        self._x += self._Vx
+        canvas.coords(self._avatar, self._x,self._y,
+                      self._x + 2*self._R,self._y + 2*self._R)
+
     def fly(self):
         self._y += self._Vy
         self._x += self._Vx
         if self._x < 0:
             self._x = 0
             self._Vx = -self._Vx
+            if self._Vx >= 0:
+                self._Vx = randint(1, 3)
+            else:
+                self._Vx = randint(-3, -1)
         elif self._x + 2*self._R > screen_width:
             self._x = screen_width - 2*self._R
             self._Vx = -self._Vx
+            if self._Vx >= 0:
+                self._Vx = randint(1, 3)
+            else:
+                self._Vx = randint(-3, -1)
         if self._y < 0:
             self._y = 0
             self._Vy = -self._Vy
+            if self._Vy >= 0:
+                self._Vy = randint(1,3)
+            else:
+                self._Vy = randint(-3,-1)
         elif self._y + 2*self._R > screen_height:
             self._y = screen_height - 2*self._R
             self._Vy = -self._Vy
+            if self._Vy >= 0:
+                self._Vy = randint(1, 3)
+            else:
+                self._Vy = randint(-3, -1)
         canvas.coords(self._avatar, self._x,self._y,
                       self._x + 2*self._R,self._y + 2*self._R)
 
@@ -93,11 +117,27 @@ def init_game():
 
 def timer_event():
     print("New time tick")
+    k = 0
     for ball in balls:
         ball.fly()
     for bullet in bullets_on_fly:
         bullet.fly()
+    for i in range(len(balls)):
+        for j in range(i+1,len(balls)):
+            k += 1
+            P = (balls[i]._x - balls[j]._x)**2 + (balls[i]._y-balls[j]._y)**2
+            R2 = balls[j]._R**2
+            if check_collision(balls[i]._x,balls[i]._y,balls[j]._x,balls[j]._y,balls[j]._R):
+                balls[i].move_return()
+                balls[j].move_return()
+
+                #print(k,": ",balls[i]._x,balls[i]._y,balls[j]._x,balls[j]._y,balls[j]._R,"=>", P,"<",R2, "-> True")
     canvas.after(timer_delay, timer_event)
+
+
+def check_collision(x1,y1, x2, y2,r):
+    return (x2 - x1) ** 2 + (y2 - y1) ** 2 <= r ** 2
+
 def click_event_handler(event):
     global bullets_on_fly
     bullet = gun.shoot()
