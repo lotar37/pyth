@@ -11,7 +11,6 @@ def create_scores_text():
     scores_text = canvas.create_text(60, 12, text="Scores: " + str(scores),
                                      font="Sans 18")
 
-
 def change_scores_text():
     canvas.itemconfigure(scores_text, text="Scores: " + str(scores))
 

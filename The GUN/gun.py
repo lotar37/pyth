@@ -2,7 +2,7 @@ import tkinter
 from random import choice, randint
 screen_width = 400
 screen_height = 300
-timer_delay = 100
+timer_delay = 30
 
 class Gun():
     def __init__(self):
